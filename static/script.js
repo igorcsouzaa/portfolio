@@ -140,6 +140,8 @@ Object.assign(i18n.pt, {
   "projects-personal": "Pessoais",
   "projects-professional": "Profissionais",
   "projects-empty": "Projetos desta categoria serão adicionados em breve.",
+  "projects-show-more": "Exibir mais",
+  "projects-show-less": "Exibir menos",
   goals: {
     objective: "Busco evoluir como desenvolvedor de software, participando de produtos desafiadores e transformando problemas reais em soluções confiáveis, úteis e bem construídas.",
     interests: ["Desenvolvimento Full-stack", "Software Embarcado", "Interfaces", "Arquitetura de Software", "Integração de Sistemas"]
@@ -153,6 +155,8 @@ Object.assign(i18n.en, {
   "projects-personal": "Personal",
   "projects-professional": "Professional",
   "projects-empty": "Projects in this category will be added soon.",
+  "projects-show-more": "Show more",
+  "projects-show-less": "Show less",
   goals: {
     objective: "I aim to grow as a software developer, contributing to challenging products and turning real problems into reliable, useful, and thoughtfully built solutions.",
     interests: ["Full-stack Development", "Embedded Software", "Interfaces", "Software Architecture", "Systems Integration"]
@@ -160,6 +164,7 @@ Object.assign(i18n.en, {
 });
 
 const projects = { academic: [], personal: [], professional: [] };
+const expandedProjectCategories = { academic: false, personal: false, professional: false };
 let currentProjectCategory = 'academic';
 let currentLang = "pt";
 let currentTheme = "dark";
@@ -178,16 +183,7 @@ function renderContent(lang){
 
   // Goals and interests
   document.getElementById('goals-content').innerHTML = `
-    <div class="goals-grid">
-      <article class="goal-card">
-        <h3 class="goal-card-title">${lang === 'pt' ? 'Objetivo' : 'Goal'}</h3>
-        <p>${d.goals.objective}</p>
-      </article>
-      <article class="goal-card">
-        <h3 class="goal-card-title">${lang === 'pt' ? 'Áreas de interesse' : 'Areas of interest'}</h3>
-        <div class="interest-tags">${d.goals.interests.map(item=>`<span class="tag">${item}</span>`).join('')}</div>
-      </article>
-    </div>
+    <p class="goals-text">${d.goals.objective} ${lang === 'pt' ? 'Minhas principais áreas de interesse são' : 'My main areas of interest are'} ${d.goals.interests.join(', ')}.</p>
   `;
 
   renderProjects();
@@ -258,12 +254,27 @@ function renderContent(lang){
 function renderProjects(){
   const list = document.getElementById('projects-list');
   const categoryProjects = projects[currentProjectCategory];
+  const isExpanded = expandedProjectCategories[currentProjectCategory];
+  const visibleProjects = isExpanded ? categoryProjects : categoryProjects.slice(0, 3);
   const activeTab = document.querySelector(`[data-project-category="${currentProjectCategory}"]`);
   list.setAttribute('aria-labelledby', activeTab.id);
   list.innerHTML = categoryProjects.length
-    ? categoryProjects.map(project=>`<article class="project-card">${project}</article>`).join('')
+    ? `${visibleProjects.map(project=>`<article class="project-card">${project}</article>`).join('')}
+       ${categoryProjects.length > 3 ? `
+         <div class="projects-actions">
+           <button class="projects-toggle" type="button" aria-expanded="${isExpanded}">
+             ${i18n[currentLang][isExpanded ? 'projects-show-less' : 'projects-show-more']}
+           </button>
+         </div>` : ''}`
     : `<div class="projects-empty">${i18n[currentLang]['projects-empty']}</div>`;
 }
+
+document.getElementById('projects-list').addEventListener('click',event=>{
+  const toggle = event.target.closest('.projects-toggle');
+  if(!toggle) return;
+  expandedProjectCategories[currentProjectCategory] = !expandedProjectCategories[currentProjectCategory];
+  renderProjects();
+});
 
 document.querySelectorAll('.project-tab').forEach(tab=>{
   tab.addEventListener('click',()=>{

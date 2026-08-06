@@ -283,19 +283,19 @@ max-width:560px;
 .about-link:hover{border-color:var(--accent)}
 
 /* GOALS & INTERESTS */
-.goals-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.goal-card{padding:22px 24px;border-radius:8px;background:var(--bg-card);border:1px solid var(--border)}
-.goal-card-title{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
-.goal-card p{font-size:0.875rem;line-height:1.75;color:var(--text-secondary)}
-.interest-tags{display:flex;flex-wrap:wrap;gap:7px}
+.goals-text{font-size:0.975rem;line-height:1.85;color:var(--text-secondary);max-width:560px}
 
 /* PROJECTS */
 .project-tabs{display:flex;gap:8px;padding-bottom:20px;border-bottom:1px solid var(--border);margin-bottom:24px}
 .project-tab{padding:8px 16px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text-secondary);font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.05em;cursor:pointer;transition:all 0.2s}
 .project-tab:hover,.project-tab.active{color:var(--accent);border-color:var(--border-accent);background:var(--accent-dim)}
 .project-tab:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.projects-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-height:96px}
+.projects-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;min-height:96px}
 .projects-empty{grid-column:1/-1;display:flex;align-items:center;justify-content:center;min-height:96px;padding:24px;border:1px dashed var(--border);border-radius:8px;color:var(--text-muted);font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.04em;text-align:center}
+.projects-actions{grid-column:1/-1;display:flex;justify-content:center;margin-top:12px}
+.projects-toggle{padding:8px 18px;border:1px solid var(--border-accent);border-radius:20px;background:var(--accent-dim);color:var(--accent);font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.05em;cursor:pointer;transition:all 0.2s}
+.projects-toggle:hover{background:var(--bg-hover);transform:translateY(-1px)}
+.projects-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
 /* EXPERIENCE */
 .exp-card{
@@ -509,7 +509,7 @@ body{cursor:auto}
 .sidebar{position:static;width:100%;min-width:auto;height:auto;padding:48px 0 32px}
 .content{padding:0 0 64px}
 .cert-grid{grid-template-columns:1fr}
-.goals-grid,.projects-grid{grid-template-columns:1fr}
+.projects-grid{grid-template-columns:1fr}
 }
 
 @media(max-width:480px){
