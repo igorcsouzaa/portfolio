@@ -142,6 +142,8 @@ Object.assign(i18n.pt, {
   "projects-empty": "Projetos desta categoria serão adicionados em breve.",
   "projects-show-more": "Exibir mais",
   "projects-show-less": "Exibir menos",
+  "project-open": "Ver detalhes",
+  "project-gallery-soon": "Fotos do projeto serão adicionadas em breve.",
   goals: {
     objective: "Busco evoluir como desenvolvedor de software, participando de produtos desafiadores e transformando problemas reais em soluções confiáveis, úteis e bem construídas.",
     interests: ["Desenvolvimento Full-stack", "Software Embarcado", "Interfaces", "Arquitetura de Software", "Integração de Sistemas"]
@@ -157,13 +159,39 @@ Object.assign(i18n.en, {
   "projects-empty": "Projects in this category will be added soon.",
   "projects-show-more": "Show more",
   "projects-show-less": "Show less",
+  "project-open": "View details",
+  "project-gallery-soon": "Project images will be added soon.",
   goals: {
     objective: "I aim to grow as a software developer, contributing to challenging products and turning real problems into reliable, useful, and thoughtfully built solutions.",
     interests: ["Full-stack Development", "Embedded Software", "Interfaces", "Software Architecture", "Systems Integration"]
   }
 });
 
-const projects = { academic: [], personal: [], professional: [] };
+const projects = {
+  academic: [
+    {
+      id: "team-zero-dsm",
+      title: "Team-Zero-DSM",
+      context: { pt: "Projeto ABP · 1º semestre", en: "Project-Based Learning · 1st semester" },
+      summary: {
+        pt: "Sistema web de certificação de aprendizagem em metodologia ágil (Scrum).",
+        en: "Web-based learning certification system focused on agile methodology (Scrum)."
+      },
+      description: {
+        pt: "O Team-Zero-DSM é um sistema web de certificação de aprendizagem sobre metodologia ágil, com foco em Scrum. A experiência é baseada em questões organizadas em cinco módulos, permitindo que os usuários avancem pelo conteúdo e validem seus conhecimentos.",
+        en: "Team-Zero-DSM is a web-based learning certification system about agile methodology, focused on Scrum. Its experience is based on questions organized into five modules, allowing users to progress through the content and validate their knowledge."
+      },
+      contribution: {
+        pt: "Atuei principalmente no back-end, além de contribuir com refatoração do código e desenvolvimento de novas funcionalidades. O servidor foi construído com Node.js e uma estrutura MVC simplificada.",
+        en: "I worked mainly on the back end, while also contributing to code refactoring and new feature development. The server was built with Node.js using a simplified MVC structure."
+      },
+      technologies: ["HTML", "CSS", "JavaScript", "Node.js", "MVC"],
+      images: []
+    }
+  ],
+  personal: [],
+  professional: []
+};
 const expandedProjectCategories = { academic: false, personal: false, professional: false };
 let currentProjectCategory = 'academic';
 let currentLang = "pt";
@@ -171,6 +199,7 @@ let currentTheme = "dark";
  
 function renderContent(lang){
   const d = i18n[lang];
+  document.querySelector('.project-modal-close').setAttribute('aria-label', lang === 'pt' ? 'Fechar' : 'Close');
  
   // Static i18n keys
   document.querySelectorAll('[data-i18n]').forEach(el=>{
@@ -259,7 +288,14 @@ function renderProjects(){
   const activeTab = document.querySelector(`[data-project-category="${currentProjectCategory}"]`);
   list.setAttribute('aria-labelledby', activeTab.id);
   list.innerHTML = categoryProjects.length
-    ? `${visibleProjects.map(project=>`<article class="project-card">${project}</article>`).join('')}
+    ? `${visibleProjects.map(project=>`
+        <article class="project-card" tabindex="0" role="button" data-project-id="${project.id}" aria-label="${i18n[currentLang]['project-open']}: ${project.title}">
+          <p class="project-context">${project.context[currentLang]}</p>
+          <h3 class="project-title">${project.title}</h3>
+          <p class="project-summary">${project.summary[currentLang]}</p>
+          <div class="project-tech">${project.technologies.slice(0, 3).map(tech=>`<span class="tag">${tech}</span>`).join('')}</div>
+          <span class="project-open">${i18n[currentLang]['project-open']} <span aria-hidden="true">↗</span></span>
+        </article>`).join('')}
        ${categoryProjects.length > 3 ? `
          <div class="projects-actions">
            <button class="projects-toggle" type="button" aria-expanded="${isExpanded}">
@@ -274,6 +310,64 @@ document.getElementById('projects-list').addEventListener('click',event=>{
   if(!toggle) return;
   expandedProjectCategories[currentProjectCategory] = !expandedProjectCategories[currentProjectCategory];
   renderProjects();
+});
+
+const projectModal = document.getElementById('project-modal');
+const projectModalContent = document.getElementById('project-modal-content');
+let lastFocusedProject = null;
+
+function findProject(id){
+  return Object.values(projects).flat().find(project=>project.id === id);
+}
+
+function openProjectModal(project, trigger){
+  lastFocusedProject = trigger;
+  projectModalContent.innerHTML = `
+    <p class="project-context">${project.context[currentLang]}</p>
+    <h2 class="project-modal-title" id="project-modal-title">${project.title}</h2>
+    <div class="project-modal-tags">${project.technologies.map(tech=>`<span class="tag">${tech}</span>`).join('')}</div>
+    <div class="project-modal-section">
+      <h3>${currentLang === 'pt' ? 'Sobre o projeto' : 'About the project'}</h3>
+      <p>${project.description[currentLang]}</p>
+    </div>
+    <div class="project-modal-section">
+      <h3>${currentLang === 'pt' ? 'Minha atuação' : 'My contribution'}</h3>
+      <p>${project.contribution[currentLang]}</p>
+    </div>
+    <div class="project-modal-section">
+      <h3>${currentLang === 'pt' ? 'Galeria' : 'Gallery'}</h3>
+      <div class="project-gallery-empty">${i18n[currentLang]['project-gallery-soon']}</div>
+    </div>
+  `;
+  projectModal.classList.add('open');
+  projectModal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  projectModal.querySelector('.project-modal-close').focus();
+}
+
+function closeProjectModal(){
+  projectModal.classList.remove('open');
+  projectModal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+  if(lastFocusedProject) lastFocusedProject.focus();
+}
+
+document.getElementById('projects-list').addEventListener('click',event=>{
+  const card = event.target.closest('.project-card');
+  if(card) openProjectModal(findProject(card.dataset.projectId), card);
+});
+
+document.getElementById('projects-list').addEventListener('keydown',event=>{
+  const card = event.target.closest('.project-card');
+  if(card && (event.key === 'Enter' || event.key === ' ')){
+    event.preventDefault();
+    openProjectModal(findProject(card.dataset.projectId), card);
+  }
+});
+
+projectModal.querySelectorAll('[data-modal-close]').forEach(element=>element.addEventListener('click',closeProjectModal));
+document.addEventListener('keydown',event=>{
+  if(event.key === 'Escape' && projectModal.classList.contains('open')) closeProjectModal();
 });
 
 document.querySelectorAll('.project-tab').forEach(tab=>{

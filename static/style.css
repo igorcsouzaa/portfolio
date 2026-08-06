@@ -296,6 +296,29 @@ max-width:560px;
 .projects-toggle{padding:8px 18px;border:1px solid var(--border-accent);border-radius:20px;background:var(--accent-dim);color:var(--accent);font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.05em;cursor:pointer;transition:all 0.2s}
 .projects-toggle:hover{background:var(--bg-hover);transform:translateY(-1px)}
 .projects-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.project-card{display:flex;flex-direction:column;min-height:220px;padding:20px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);cursor:pointer;transition:transform 0.2s,border-color 0.2s,background 0.2s}
+.project-card:hover,.project-card:focus-visible{transform:translateY(-3px);border-color:var(--border-accent);background:var(--bg-hover);outline:none}
+.project-context{font-family:'Space Mono',monospace;font-size:0.65rem;line-height:1.5;letter-spacing:0.05em;color:var(--accent);margin-bottom:8px}
+.project-title{font-size:1rem;color:var(--text-primary);margin-bottom:8px}
+.project-summary{font-size:0.82rem;line-height:1.6;color:var(--text-secondary);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.project-tech{display:flex;flex-wrap:wrap;gap:5px;margin-top:14px}
+.project-open{margin-top:auto;padding-top:18px;font-family:'Space Mono',monospace;font-size:0.67rem;color:var(--accent)}
+
+body.modal-open{overflow:hidden}
+.project-modal{position:fixed;inset:0;z-index:11000;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;cursor:auto;transition:opacity 0.2s,visibility 0.2s}
+.project-modal.open{opacity:1;visibility:visible}
+.project-modal-backdrop{position:absolute;inset:0;background:rgba(2,5,12,0.82);backdrop-filter:blur(5px)}
+.project-modal-dialog{position:relative;width:min(720px,calc(100vw - 48px));height:min(680px,calc(100vh - 48px));border:1px solid var(--border-accent);border-radius:12px;background:var(--bg-secondary);box-shadow:0 24px 80px rgba(0,0,0,0.45);overflow:hidden;transform:translateY(12px);transition:transform 0.2s}
+.project-modal.open .project-modal-dialog{transform:translateY(0)}
+.project-modal-content{height:100%;overflow-y:auto;padding:42px 40px}
+.project-modal-close{position:absolute;top:14px;right:16px;z-index:1;width:34px;height:34px;border:1px solid var(--border);border-radius:50%;background:var(--bg-card);color:var(--text-secondary);font-size:1.35rem;line-height:1;cursor:pointer;transition:all 0.2s}
+.project-modal-close:hover{color:var(--accent);border-color:var(--border-accent)}
+.project-modal-title{font-size:1.6rem;color:var(--text-primary);margin-bottom:14px}
+.project-modal-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px}
+.project-modal-section{margin-top:28px}
+.project-modal-section h3{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.project-modal-section p{font-size:0.9rem;line-height:1.8;color:var(--text-secondary)}
+.project-gallery-empty{display:flex;align-items:center;justify-content:center;min-height:160px;padding:24px;border:1px dashed var(--border);border-radius:8px;color:var(--text-muted);font-family:'Space Mono',monospace;font-size:0.7rem;text-align:center}
 
 /* EXPERIENCE */
 .exp-card{
@@ -515,4 +538,7 @@ body{cursor:auto}
 @media(max-width:480px){
 .project-tabs{flex-wrap:wrap}
 .project-tab{flex:1;padding-left:10px;padding-right:10px}
+.project-modal{padding:12px}
+.project-modal-dialog{width:calc(100vw - 24px);height:calc(100vh - 24px)}
+.project-modal-content{padding:54px 22px 32px}
 }
