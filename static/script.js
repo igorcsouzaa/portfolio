@@ -133,6 +133,34 @@ const i18n = {
   }
 };
  
+Object.assign(i18n.pt, {
+  "nav-goals": "Objetivos & Interesses",
+  "nav-projects": "Projetos",
+  "projects-academic": "Acadêmicos",
+  "projects-personal": "Pessoais",
+  "projects-professional": "Profissionais",
+  "projects-empty": "Projetos desta categoria serão adicionados em breve.",
+  goals: {
+    objective: "Busco evoluir como desenvolvedor de software, participando de produtos desafiadores e transformando problemas reais em soluções confiáveis, úteis e bem construídas.",
+    interests: ["Desenvolvimento Full-stack", "Software Embarcado", "Interfaces", "Arquitetura de Software", "Integração de Sistemas"]
+  }
+});
+
+Object.assign(i18n.en, {
+  "nav-goals": "Goals & Interests",
+  "nav-projects": "Projects",
+  "projects-academic": "Academic",
+  "projects-personal": "Personal",
+  "projects-professional": "Professional",
+  "projects-empty": "Projects in this category will be added soon.",
+  goals: {
+    objective: "I aim to grow as a software developer, contributing to challenging products and turning real problems into reliable, useful, and thoughtfully built solutions.",
+    interests: ["Full-stack Development", "Embedded Software", "Interfaces", "Software Architecture", "Systems Integration"]
+  }
+});
+
+const projects = { academic: [], personal: [], professional: [] };
+let currentProjectCategory = 'academic';
 let currentLang = "pt";
 let currentTheme = "dark";
  
@@ -147,6 +175,22 @@ function renderContent(lang){
  
   // About
   document.getElementById('about-text').innerHTML = d.about;
+
+  // Goals and interests
+  document.getElementById('goals-content').innerHTML = `
+    <div class="goals-grid">
+      <article class="goal-card">
+        <h3 class="goal-card-title">${lang === 'pt' ? 'Objetivo' : 'Goal'}</h3>
+        <p>${d.goals.objective}</p>
+      </article>
+      <article class="goal-card">
+        <h3 class="goal-card-title">${lang === 'pt' ? 'Áreas de interesse' : 'Areas of interest'}</h3>
+        <div class="interest-tags">${d.goals.interests.map(item=>`<span class="tag">${item}</span>`).join('')}</div>
+      </article>
+    </div>
+  `;
+
+  renderProjects();
  
   // Experience
   const expEl = document.getElementById('experience-list');
@@ -210,6 +254,28 @@ function renderContent(lang){
     </div>
   `;
 }
+
+function renderProjects(){
+  const list = document.getElementById('projects-list');
+  const categoryProjects = projects[currentProjectCategory];
+  const activeTab = document.querySelector(`[data-project-category="${currentProjectCategory}"]`);
+  list.setAttribute('aria-labelledby', activeTab.id);
+  list.innerHTML = categoryProjects.length
+    ? categoryProjects.map(project=>`<article class="project-card">${project}</article>`).join('')
+    : `<div class="projects-empty">${i18n[currentLang]['projects-empty']}</div>`;
+}
+
+document.querySelectorAll('.project-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    currentProjectCategory = tab.dataset.projectCategory;
+    document.querySelectorAll('.project-tab').forEach(item=>{
+      const isActive = item === tab;
+      item.classList.toggle('active', isActive);
+      item.setAttribute('aria-selected', isActive);
+    });
+    renderProjects();
+  });
+});
  
 // Lang toggle
 document.getElementById('langBtn').addEventListener('click',()=>{

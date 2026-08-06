@@ -30,6 +30,14 @@
           <span class="nav-line"></span>
           <span data-i18n="nav-about">Sobre</span>
         </a>
+        <a class="nav-item" href="#goals">
+          <span class="nav-line"></span>
+          <span data-i18n="nav-goals">Objetivos & Interesses</span>
+        </a>
+        <a class="nav-item" href="#projects">
+          <span class="nav-line"></span>
+          <span data-i18n="nav-projects">Projetos</span>
+        </a>
         <a class="nav-item" href="#experience">
           <span class="nav-line"></span>
           <span data-i18n="nav-experience">Experiência</span>
@@ -78,6 +86,23 @@
     <section id="about">
       <p class="section-label" data-i18n="nav-about">Sobre</p>
       <div class="about-text" id="about-text"></div>
+    </section>
+
+    <!-- GOALS & INTERESTS -->
+    <section id="goals">
+      <p class="section-label" data-i18n="nav-goals">Objetivos & Interesses</p>
+      <div id="goals-content"></div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <p class="section-label" data-i18n="nav-projects">Projetos</p>
+      <div class="project-tabs" role="tablist" aria-label="Categorias de projetos">
+        <button class="project-tab active" id="tab-academic" role="tab" aria-selected="true" aria-controls="projects-list" data-project-category="academic" data-i18n="projects-academic">Acadêmicos</button>
+        <button class="project-tab" id="tab-personal" role="tab" aria-selected="false" aria-controls="projects-list" data-project-category="personal" data-i18n="projects-personal">Pessoais</button>
+        <button class="project-tab" id="tab-professional" role="tab" aria-selected="false" aria-controls="projects-list" data-project-category="professional" data-i18n="projects-professional">Profissionais</button>
+      </div>
+      <div id="projects-list" class="projects-grid" role="tabpanel" aria-labelledby="tab-academic"></div>
     </section>
 
     <!-- EXPERIENCE -->
