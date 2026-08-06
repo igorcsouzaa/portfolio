@@ -144,6 +144,8 @@ Object.assign(i18n.pt, {
   "projects-show-less": "Exibir menos",
   "project-open": "Ver detalhes",
   "project-gallery-soon": "Fotos do projeto serão adicionadas em breve.",
+  "project-repository": "Ver repositório",
+  "project-website": "Acessar projeto",
   goals: {
     objective: "Busco evoluir como desenvolvedor de software, participando de produtos desafiadores e transformando problemas reais em soluções confiáveis, úteis e bem construídas.",
     interests: ["Desenvolvimento Full-stack", "Software Embarcado", "Interfaces", "Arquitetura de Software", "Integração de Sistemas"]
@@ -161,6 +163,8 @@ Object.assign(i18n.en, {
   "projects-show-less": "Show less",
   "project-open": "View details",
   "project-gallery-soon": "Project images will be added soon.",
+  "project-repository": "View repository",
+  "project-website": "Visit project",
   goals: {
     objective: "I aim to grow as a software developer, contributing to challenging products and turning real problems into reliable, useful, and thoughtfully built solutions.",
     interests: ["Full-stack Development", "Embedded Software", "Interfaces", "Software Architecture", "Systems Integration"]
@@ -189,7 +193,65 @@ const projects = {
       images: []
     }
   ],
-  personal: [],
+  personal: [
+    {
+      id: "nosso-caixa",
+      title: "Nosso Caixa",
+      context: { pt: "Projeto pessoal · Aplicação web", en: "Personal project · Web application" },
+      summary: {
+        pt: "Dashboard financeiro compartilhado para casais acompanharem receitas, despesas e saldo.",
+        en: "Shared financial dashboard for couples to track income, expenses, and balance."
+      },
+      description: {
+        pt: "O Nosso Caixa é uma aplicação financeira compartilhada criada para facilitar o controle do dinheiro de um casal. O sistema reúne receitas e despesas, apresenta o saldo mensal, separa os lançamentos de cada pessoa, organiza gastos por categoria e oferece gráficos para acompanhar a evolução financeira.",
+        en: "Nosso Caixa is a shared finance application created to simplify money management for couples. It brings income and expenses together, displays the monthly balance, separates each person's entries, organizes spending by category, and provides charts to track financial progress."
+      },
+      contribution: {
+        pt: "Desenvolvi a aplicação de ponta a ponta, construindo a interface responsiva em React e TypeScript, a autenticação dos usuários e a integração com o Supabase para persistência e sincronização dos dados financeiros. O projeto está publicado na Vercel.",
+        en: "I developed the application end to end, building the responsive interface with React and TypeScript, user authentication, and the Supabase integration for financial data persistence and synchronization. The project is deployed on Vercel."
+      },
+      technologies: ["React", "TypeScript", "Vite", "Supabase", "PostgreSQL", "Recharts", "Vercel"],
+      repository: "https://github.com/igorcsouzaa/nosso-caixa",
+      images: [
+        {
+          src: "assets/nosso-caixa.png",
+          alt: {
+            pt: "Dashboard principal do Nosso Caixa com resumo financeiro mensal",
+            en: "Nosso Caixa main dashboard with the monthly financial overview"
+          }
+        }
+      ]
+    },
+    {
+      id: "orisweb",
+      title: "OrisWeb",
+      context: { pt: "Projeto pessoal · Site institucional", en: "Personal project · Corporate website" },
+      summary: {
+        pt: "Site institucional da Oris, agência de web design focada em conversão e geração de clientes.",
+        en: "Corporate website for Oris, a web design agency focused on conversion and lead generation."
+      },
+      description: {
+        pt: "O OrisWeb é o site institucional da Oris, agência de web design de São José dos Campos. A experiência foi planejada para apresentar a proposta de valor da marca, seus serviços, planos, processo de trabalho e projetos, conduzindo potenciais clientes ao contato direto pelo WhatsApp.",
+        en: "OrisWeb is the corporate website for Oris, a web design agency based in São José dos Campos. The experience was designed to present the brand's value proposition, services, plans, workflow, and projects while directing potential clients to immediate contact through WhatsApp."
+      },
+      contribution: {
+        pt: "Contribuí no desenvolvimento da presença digital da agência, construindo páginas responsivas com HTML, CSS e JavaScript puro, além de implementar alternância de tema, animações de entrada, marquee contínuo, cursor personalizado e páginas demonstrativas de projetos.",
+        en: "I contributed to the agency's digital presence by building responsive pages with HTML, CSS, and vanilla JavaScript, as well as implementing theme switching, entrance animations, a continuous marquee, a custom cursor, and project showcase pages."
+      },
+      technologies: ["HTML", "CSS", "JavaScript", "Responsive Design", "Git", "GitHub"],
+      repository: "https://github.com/igorcsouzaa/OrisWeb",
+      website: "https://www.orisstudio.com.br/",
+      images: [
+        {
+          src: "assets/oris.png",
+          alt: {
+            pt: "Página inicial do site da Oris com identidade visual preta, branca e laranja",
+            en: "Oris website homepage featuring its black, white, and orange visual identity"
+          }
+        }
+      ]
+    }
+  ],
   professional: []
 };
 const expandedProjectCategories = { academic: false, personal: false, professional: false };
@@ -326,6 +388,10 @@ function openProjectModal(project, trigger){
     <p class="project-context">${project.context[currentLang]}</p>
     <h2 class="project-modal-title" id="project-modal-title">${project.title}</h2>
     <div class="project-modal-tags">${project.technologies.map(tech=>`<span class="tag">${tech}</span>`).join('')}</div>
+    <div class="project-links">
+      ${project.website ? `<a class="project-repository" href="${project.website}" target="_blank" rel="noopener noreferrer">${i18n[currentLang]['project-website']} <span aria-hidden="true">↗</span></a>` : ''}
+      ${project.repository ? `<a class="project-repository" href="${project.repository}" target="_blank" rel="noopener noreferrer">${i18n[currentLang]['project-repository']} <span aria-hidden="true">↗</span></a>` : ''}
+    </div>
     <div class="project-modal-section">
       <h3>${currentLang === 'pt' ? 'Sobre o projeto' : 'About the project'}</h3>
       <p>${project.description[currentLang]}</p>
@@ -336,7 +402,12 @@ function openProjectModal(project, trigger){
     </div>
     <div class="project-modal-section">
       <h3>${currentLang === 'pt' ? 'Galeria' : 'Gallery'}</h3>
-      <div class="project-gallery-empty">${i18n[currentLang]['project-gallery-soon']}</div>
+      ${project.images.length
+        ? `<div class="project-gallery">${project.images.map(image=>`
+            <figure class="project-gallery-item">
+              <img src="${image.src}" alt="${image.alt[currentLang]}" loading="lazy">
+            </figure>`).join('')}</div>`
+        : `<div class="project-gallery-empty">${i18n[currentLang]['project-gallery-soon']}</div>`}
     </div>
   `;
   projectModal.classList.add('open');
