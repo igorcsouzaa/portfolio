@@ -18,7 +18,10 @@
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-top">
-      <h1 class="name">Igor Corrêa<br>de <span>Souza</span></h1>
+      <div class="identity-header">
+        <h1 class="name">Igor Corrêa<br>de <span>Souza</span></h1>
+        <img class="profile-photo" src="assets/pfp.png" alt="Foto de perfil de Igor Corrêa de Souza" width="92" height="92">
+      </div>
       <p class="title" data-i18n="title">Desenvolvedor de Software</p>
       <p class="tagline" data-i18n="tagline">Construindo interfaces e sistemas que integram o mundo físico com o digital.</p>
       <div class="status-badge">
@@ -98,11 +101,11 @@
     <section id="projects">
       <p class="section-label" data-i18n="nav-projects">Projetos</p>
       <div class="project-tabs" role="tablist" aria-label="Categorias de projetos">
-        <button class="project-tab active" id="tab-academic" role="tab" aria-selected="true" aria-controls="projects-list" data-project-category="academic" data-i18n="projects-academic">Acadêmicos</button>
+        <button class="project-tab active" id="tab-professional" role="tab" aria-selected="true" aria-controls="projects-list" data-project-category="professional" data-i18n="projects-professional">Profissionais</button>
+        <button class="project-tab" id="tab-academic" role="tab" aria-selected="false" aria-controls="projects-list" data-project-category="academic" data-i18n="projects-academic">Acadêmicos</button>
         <button class="project-tab" id="tab-personal" role="tab" aria-selected="false" aria-controls="projects-list" data-project-category="personal" data-i18n="projects-personal">Pessoais</button>
-        <button class="project-tab" id="tab-professional" role="tab" aria-selected="false" aria-controls="projects-list" data-project-category="professional" data-i18n="projects-professional">Profissionais</button>
       </div>
-      <div id="projects-list" class="projects-grid" role="tabpanel" aria-labelledby="tab-academic"></div>
+      <div id="projects-list" class="projects-grid" role="tabpanel" aria-labelledby="tab-professional"></div>
     </section>
 
     <div class="project-modal" id="project-modal" aria-hidden="true">

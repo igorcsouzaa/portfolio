@@ -23,12 +23,12 @@ const i18n = {
     ],
     "skills": {
       "Linguagens": {
-        icons: "javascript,typescript,python,dart,php,cs,cpp",
-        names: ["JavaScript","TypeScript","Python","Dart","PHP","C#","C++"]
+        icons: "javascript,typescript,rust,python,dart,php,cs,cpp",
+        names: ["JavaScript","TypeScript","Rust","Python","Dart","PHP","C#","C++"]
       },
       "Frameworks & Libs": {
-        icons: "flutter,react,nodejs,flask,electron,dotnet,qt",
-        names: ["Flutter","React","Node.js","Flask","Electron",".NET","Qt"]
+        icons: "flutter,react,tauri,nodejs,flask,electron,dotnet,qt",
+        names: ["Flutter","React","Tauri","Node.js","Flask","Electron",".NET","Qt"]
       },
       "Banco de Dados": {
         icons: "postgres,mysql",
@@ -43,7 +43,7 @@ const i18n = {
       {
         degree: "Desenvolvimento de Software Multiplataforma",
         school: "Fatec Jacareí",
-        period: "2026 — 2029",
+        period: "2026 — 2028",
         desc: "Graduação tecnológica em andamento com foco em arquitetura de software, sistemas multiplataforma e boas práticas de desenvolvimento."
       },
       {
@@ -89,12 +89,12 @@ const i18n = {
     ],
     "skills": {
       "Languages": {
-        icons: "javascript,typescript,python,dart,php,cs,cpp",
-        names: ["JavaScript","TypeScript","Python","Dart","PHP","C#","C++"]
+        icons: "javascript,typescript,python,dart,php,cs,cpp,rust",
+        names: ["JavaScript","TypeScript","Python","Dart","PHP","C#","C++","Rust"]
       },
       "Frameworks & Libraries": {
-        icons: "flutter,react,nodejs,flask,electron,dotnet,qt",
-        names: ["Flutter","React","Node.js","Flask","Electron",".NET","Qt"]
+        icons: "flutter,react,nodejs,flask,electron,dotnet,qt,tauri",
+        names: ["Flutter","React","Node.js","Flask","Electron",".NET","Qt","Tauri"]
       },
       "Databases": {
         icons: "postgres,mysql",
@@ -109,7 +109,7 @@ const i18n = {
       {
         degree: "Technologist in Multiplatform Software Development",
         school: "Fatec Jacareí",
-        period: "2026 — 2029",
+        period: "2026 — 2028",
         desc: "Ongoing degree focused on software architecture, multiplatform systems, and modern development practices."
       },
       {
@@ -144,6 +144,7 @@ Object.assign(i18n.pt, {
   "projects-show-less": "Exibir menos",
   "project-open": "Ver detalhes",
   "project-gallery-soon": "Fotos do projeto serão adicionadas em breve.",
+  "project-gallery-confidential": "Imagens não exibidas por motivos de confidencialidade.",
   "project-repository": "Ver repositório",
   "project-website": "Acessar projeto",
   goals: {
@@ -163,6 +164,7 @@ Object.assign(i18n.en, {
   "projects-show-less": "Show less",
   "project-open": "View details",
   "project-gallery-soon": "Project images will be added soon.",
+  "project-gallery-confidential": "Images are not displayed due to confidentiality.",
   "project-repository": "View repository",
   "project-website": "Visit project",
   goals: {
@@ -173,6 +175,34 @@ Object.assign(i18n.en, {
 
 const projects = {
   academic: [
+    {
+      id: "raintrack",
+      title: "RainTrack",
+      context: { pt: "TCC do Ensino Médio Técnico · ETEC SJC", en: "Technical High School Capstone · ETEC SJC" },
+      summary: {
+        pt: "Sistema de monitoramento meteorológico em tempo real com estação baseada em ESP32 e dashboard web.",
+        en: "Real-time weather monitoring system with an ESP32-based station and web dashboard."
+      },
+      description: {
+        pt: "O RainTrack foi desenvolvido como meu Trabalho de Conclusão de Curso do Ensino Médio Técnico em Desenvolvimento de Sistemas pela ETEC de São José dos Campos. O sistema coleta dados de temperatura, umidade e precipitação por meio de sensores conectados a um ESP32, envia as medições via MQTT, armazena os dados em MySQL e os apresenta em um dashboard web interativo.",
+        en: "RainTrack was developed as my capstone project for the Technical High School program in Systems Development at ETEC São José dos Campos. The system collects temperature, humidity, and precipitation data through sensors connected to an ESP32, sends the readings via MQTT, stores them in MySQL, and displays them in an interactive web dashboard."
+      },
+      contribution: {
+        pt: "Desenvolvi a solução de ponta a ponta, integrando o firmware do ESP32, a comunicação com o broker Eclipse Mosquitto, o back-end em Flask, a persistência em MySQL e a interface web para visualização e administração das estações e medições.",
+        en: "I developed the end-to-end solution, integrating the ESP32 firmware, communication with the Eclipse Mosquitto broker, the Flask back end, MySQL persistence, and the web interface for viewing and managing stations and readings."
+      },
+      technologies: ["Python", "Flask", "ESP32", "MQTT", "MySQL", "HTML", "CSS", "JavaScript", "Highcharts"],
+      repository: "https://github.com/igorcsouzaa/RainTrack",
+      images: [
+        {
+          src: "assets/raintrack.png",
+          alt: {
+            pt: "Dashboard do RainTrack exibindo gráficos de temperatura e umidade de uma estação meteorológica",
+            en: "RainTrack dashboard showing temperature and humidity charts from a weather station"
+          }
+        }
+      ]
+    },
     {
       id: "team-zero-dsm",
       title: "Team-Zero-DSM",
@@ -252,10 +282,151 @@ const projects = {
       ]
     }
   ],
-  professional: []
+  professional: [
+    {
+      id: "mfsim-instructor",
+      title: "MFSim Instructor",
+      context: { pt: "Projeto profissional · MFSIM", en: "Professional project · MFSIM" },
+      summary: {
+        pt: "Aplicativo para instrutores acompanharem aulas de voo, analisarem aproximações e gerarem relatórios.",
+        en: "Application for flight instructors to monitor lessons, analyze approaches, and generate reports."
+      },
+      description: {
+        pt: "Aplicativo utilizado por instrutores de voo para acompanhar aulas, visualizar dados de aproximação e gerar relatórios, com comunicação em tempo real entre o dispositivo móvel e o computador do simulador.",
+        en: "Application used by flight instructors to monitor lessons, view approach data, and generate reports, with real-time communication between the mobile device and the simulator computer."
+      },
+      contribution: {
+        pt: "Atuei em diferentes frentes do aplicativo, evoluindo interfaces e fluxos utilizados pelos instrutores, desenvolvendo novas funcionalidades e aprimorando recursos já existentes. Também trabalhei na comunicação entre o aplicativo e o computador do simulador, na visualização de dados de voo e na geração de relatórios, além de contribuir com ajustes de arquitetura, estabilidade e experiência de uso.",
+        en: "I worked across different areas of the application, improving interfaces and workflows used by instructors, developing new features, and enhancing existing ones. I also worked on communication between the application and the simulator computer, flight-data visualization, and report generation, while contributing to architecture, stability, and user-experience improvements."
+      },
+      technologies: ["Flutter", "Dart", "fl_chart", "HTML", "Chart.js", "Sockets"],
+      confidential: true,
+      images: []
+    },
+    {
+      id: "mfsim-instruments",
+      title: "MFSim Instruments",
+      context: { pt: "Projeto profissional · MFSIM", en: "Professional project · MFSIM" },
+      summary: {
+        pt: "Sistema de gerenciamento e personalização de instrumentos de cockpit para monitores.",
+        en: "System for managing and customizing cockpit instruments across PC displays."
+      },
+      description: {
+        pt: "Gerencia instrumentos de cockpit exibidos em até três monitores, com login, licenças por instrumento, presets por cockpit e aeronave e edição avançada de painéis. Possui integração com Microsoft Flight Simulator e X-Plane.",
+        en: "Manages cockpit instruments displayed across up to three monitors, with login, per-instrument licensing, cockpit and aircraft presets, and advanced panel editing. It integrates with Microsoft Flight Simulator and X-Plane."
+      },
+      contribution: {
+        pt: "Contribuí para a evolução da aplicação desktop, trabalhando na organização das interfaces e nos fluxos de configuração e personalização dos painéis. Também participei da integração entre os componentes da solução e de melhorias voltadas à usabilidade, consistência e manutenção do sistema.",
+        en: "I contributed to the evolution of the desktop application, working on interface organization and panel configuration and customization workflows. I also participated in component integration and improvements focused on usability, consistency, and system maintainability."
+      },
+      technologies: ["Tauri", "Desktop", "MSFS", "X-Plane"],
+      confidential: true,
+      images: []
+    },
+    {
+      id: "mfsim-remote-support",
+      title: "MFSim Remote Support",
+      context: { pt: "Projeto profissional · MFSIM", en: "Professional project · MFSIM" },
+      summary: {
+        pt: "Solução de suporte remoto com transmissão de tela, resolução adaptativa e seleção de monitor.",
+        en: "Remote support solution with screen streaming, adaptive resolution, and monitor selection."
+      },
+      description: {
+        pt: "Solução para transmitir a tela entre máquinas durante atendimentos de suporte remoto, oferecendo resolução adaptativa, escolha do monitor compartilhado e zoom por meio de um relay hospedado na AWS Lightsail.",
+        en: "A solution for streaming screens between machines during remote support sessions, offering adaptive resolution, shared-monitor selection, and zoom through a relay hosted on AWS Lightsail."
+      },
+      contribution: {
+        pt: "Atuei na evolução da experiência de suporte remoto, contribuindo para os fluxos de conexão entre as máquinas e para os controles de visualização da transmissão. Participei ainda de ajustes na comunicação com o relay e de melhorias de estabilidade e adaptação da sessão a diferentes cenários de uso.",
+        en: "I worked on improving the remote-support experience, contributing to connection flows between machines and stream viewing controls. I also participated in relay communication adjustments and improvements to session stability and adaptability across different usage scenarios."
+      },
+      technologies: ["AWS Lightsail", "Relay", "Screen Streaming"],
+      confidential: true,
+      images: []
+    },
+    {
+      id: "mfsim-connector-radiostack",
+      title: "MFSim Connector RadioStack",
+      context: { pt: "Projeto profissional · MFSIM", en: "Professional project · MFSIM" },
+      summary: {
+        pt: "Ferramenta desktop de integração para o instrumento e painel RadioStack.",
+        en: "Desktop integration tool for the RadioStack instrument and panel."
+      },
+      description: {
+        pt: "Aplicação desktop que se conecta pela porta COM ao dispositivo RadioStack ligado ao computador. A ferramenta atua como uma ponte de comunicação, interpretando as interações realizadas no equipamento e enviando os comandos correspondentes ao simulador de voo.",
+        en: "Desktop application that connects through a COM port to the RadioStack device attached to the computer. The tool acts as a communication bridge, interpreting interactions performed on the hardware and sending the corresponding commands to the flight simulator."
+      },
+      contribution: {
+        pt: "Atuei no desenvolvimento e na evolução do Connector, contribuindo para a interface da aplicação e para a integração entre suas diferentes camadas de comunicação.",
+        en: "I worked on developing and evolving the Connector, contributing to the application interface and the integration between its communication layers."
+      },
+      technologies: ["Tauri", "Serial Communication", "COM Port", "Simulator Integration"],
+      confidential: true,
+      images: []
+    },
+    {
+      id: "mfsim-connector-smc172",
+      title: "MFSim Connector SMC172 Compacto",
+      context: { pt: "Projeto profissional · MFSIM", en: "Professional project · MFSIM" },
+      summary: {
+        pt: "Ferramenta de integração para o painel analógico do Cessna 172.",
+        en: "Integration tool for the Cessna 172 analog instrument panel."
+      },
+      description: {
+        pt: "Aplicação desktop que se conecta pela porta COM ao painel analógico SMC172 Compacto ligado ao computador. Ela funciona como uma ponte entre o dispositivo físico e o simulador, encaminhando os comandos do painel para a aeronave virtual.",
+        en: "Desktop application that connects through a COM port to the SMC172 Compact analog panel attached to the computer. It works as a bridge between the physical device and the simulator, forwarding panel commands to the virtual aircraft."
+      },
+      contribution: {
+        pt: "Contribuí para o desenvolvimento do Connector, trabalhando na experiência visual da aplicação e na integração da interface com os recursos responsáveis pela comunicação com o dispositivo.",
+        en: "I contributed to the Connector's development, working on the application's visual experience and integrating the interface with the resources responsible for device communication."
+      },
+      technologies: ["Tauri", "Serial Communication", "COM Port", "Simulator Integration"],
+      confidential: true,
+      images: []
+    },
+    {
+      id: "mfsim-connector-g1000",
+      title: "MFSim Connector G1000",
+      context: { pt: "Projeto profissional · MFSIM", en: "Professional project · MFSIM" },
+      summary: {
+        pt: "Ferramenta desktop de integração para o sistema de aviônicos G1000.",
+        en: "Desktop integration tool for the G1000 avionics system."
+      },
+      description: {
+        pt: "Aplicação desktop que estabelece a conexão pela porta COM com o dispositivo G1000 conectado ao computador. O Connector recebe as interações do equipamento e atua como ponte para enviar os comandos ao sistema de aviônicos dentro do simulador.",
+        en: "Desktop application that establishes a COM-port connection with the G1000 device attached to the computer. The Connector receives hardware interactions and acts as a bridge to send commands to the avionics system inside the simulator."
+      },
+      contribution: {
+        pt: "Participei do desenvolvimento e da evolução do Connector, contribuindo para a interface, para a integração entre as camadas da aplicação e para o fluxo de comunicação entre o dispositivo e o simulador.",
+        en: "I participated in developing and evolving the Connector, contributing to the interface, application-layer integration, and the communication flow between the device and the simulator."
+      },
+      technologies: ["Tauri", "Serial Communication", "COM Port", "Simulator Integration"],
+      confidential: true,
+      images: []
+    },
+    {
+      id: "mfsim-connector-gfc700",
+      title: "MFSim Connector GFC700",
+      context: { pt: "Projeto profissional · MFSIM", en: "Professional project · MFSIM" },
+      summary: {
+        pt: "Ferramenta desktop de integração para o sistema de controle de voo GFC700.",
+        en: "Desktop integration tool for the GFC700 flight control system."
+      },
+      description: {
+        pt: "Aplicação desktop que se comunica pela porta COM com o dispositivo GFC700 conectado ao computador. A solução faz a ponte entre os comandos enviados pelo equipamento físico e o sistema de controle de voo correspondente no simulador.",
+        en: "Desktop application that communicates through a COM port with the GFC700 device attached to the computer. The solution bridges commands sent by the physical hardware to the corresponding flight-control system in the simulator."
+      },
+      contribution: {
+        pt: "Atuei na construção e no aprimoramento do Connector, colaborando com a interface, a integração interna da aplicação e a comunicação necessária para conectar o equipamento físico ao simulador.",
+        en: "I worked on building and improving the Connector, collaborating on the interface, internal application integration, and the communication required to connect the physical hardware to the simulator."
+      },
+      technologies: ["Tauri", "Serial Communication", "COM Port", "Simulator Integration"],
+      confidential: true,
+      images: []
+    }
+  ]
 };
 const expandedProjectCategories = { academic: false, personal: false, professional: false };
-let currentProjectCategory = 'academic';
+let currentProjectCategory = 'professional';
 let currentLang = "pt";
 let currentTheme = "dark";
  
@@ -351,7 +522,7 @@ function renderProjects(){
   list.setAttribute('aria-labelledby', activeTab.id);
   list.innerHTML = categoryProjects.length
     ? `${visibleProjects.map(project=>`
-        <article class="project-card" tabindex="0" role="button" data-project-id="${project.id}" aria-label="${i18n[currentLang]['project-open']}: ${project.title}">
+        <article class="project-card${project.confidential ? ' project-card-professional' : ''}" tabindex="0" role="button" data-project-id="${project.id}" aria-label="${i18n[currentLang]['project-open']}: ${project.title}">
           <p class="project-context">${project.context[currentLang]}</p>
           <h3 class="project-title">${project.title}</h3>
           <p class="project-summary">${project.summary[currentLang]}</p>
@@ -407,7 +578,14 @@ function openProjectModal(project, trigger){
             <figure class="project-gallery-item">
               <img src="${image.src}" alt="${image.alt[currentLang]}" loading="lazy">
             </figure>`).join('')}</div>`
-        : `<div class="project-gallery-empty">${i18n[currentLang]['project-gallery-soon']}</div>`}
+        : project.confidential
+          ? `<div class="project-gallery project-gallery-confidential">
+              <figure class="project-gallery-item project-gallery-brand">
+                <img src="assets/mfsim.png" alt="MFSIM Simuladores de Voo" loading="lazy">
+              </figure>
+              <div class="project-gallery-empty">${i18n[currentLang]['project-gallery-confidential']}</div>
+            </div>`
+        : `<div class="project-gallery-empty">${i18n[currentLang][project.confidential ? 'project-gallery-confidential' : 'project-gallery-soon']}</div>`}
     </div>
   `;
   projectModal.classList.add('open');
@@ -473,16 +651,38 @@ document.getElementById('themeBtn').addEventListener('click',()=>{
 // Nav active state
 const sections = document.querySelectorAll('section');
 const navItems = document.querySelectorAll('.nav-item');
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      navItems.forEach(n=>n.classList.remove('active'));
-      const active = document.querySelector(`.nav-item[href="#${e.target.id}"]`);
-      if(active) active.classList.add('active');
-    }
+let navUpdatePending = false;
+
+function updateActiveNav(){
+  navUpdatePending = false;
+  const sectionsList = [...sections];
+  const isNearPageBottom = window.scrollY + window.innerHeight >=
+    document.documentElement.scrollHeight - 80;
+  const activeSection = isNearPageBottom
+    ? sectionsList.at(-1)
+    : sectionsList.find(section=>{
+    const rect = section.getBoundingClientRect();
+    return rect.bottom > 0 && rect.top < window.innerHeight;
   });
-},{threshold:0.3});
-sections.forEach(s=>observer.observe(s));
+
+  if(!activeSection) return;
+
+  navItems.forEach(item=>{
+    item.classList.toggle(
+      'active',
+      item.getAttribute('href') === `#${activeSection.id}`
+    );
+  });
+}
+
+function scheduleActiveNavUpdate(){
+  if(navUpdatePending) return;
+  navUpdatePending = true;
+  requestAnimationFrame(updateActiveNav);
+}
+
+window.addEventListener('scroll',scheduleActiveNavUpdate,{passive:true});
+window.addEventListener('resize',scheduleActiveNavUpdate);
  
 // Custom cursor
 const cursor = document.getElementById('cursor');
@@ -506,3 +706,4 @@ document.querySelectorAll('a,button,.exp-card,.cert-card,.skill-badge').forEach(
  
 // Init
 renderContent('pt');
+updateActiveNav();
