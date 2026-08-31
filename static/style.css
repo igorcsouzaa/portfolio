@@ -434,6 +434,15 @@ display:flex;
 flex-wrap:wrap;
 gap:8px;
 }
+.skillicons-row{
+max-width:100%;
+overflow:hidden;
+}
+.skillicons-img{
+display:block;
+max-width:100%;
+height:auto;
+}
 .skill-badge{
 display:flex;
 align-items:center;
@@ -570,6 +579,7 @@ body{cursor:auto}
 @media(max-width:480px){
 .identity-header{justify-content:flex-start}
 .profile-photo{width:80px;height:80px;flex-basis:80px}
+.skillicons-row{overflow:visible}
 .project-tabs{flex-wrap:wrap}
 .project-tab{flex:1;padding-left:10px;padding-right:10px}
 .project-modal{padding:12px}

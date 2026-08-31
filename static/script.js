@@ -473,7 +473,10 @@ function renderContent(lang){
     <div class="skills-group">
       <div class="skills-group-label">${group}</div>
       <div class="skillicons-row">
-        <img src="https://skillicons.dev/icons?i=${data.icons}" alt="${data.names.join(', ')}" title="${data.names.join(' · ')}" class="skillicons-img" loading="lazy"/>
+        <picture>
+          <source media="(max-width: 480px)" srcset="https://skillicons.dev/icons?i=${data.icons}&theme=${iconTheme}&perline=4">
+          <img src="https://skillicons.dev/icons?i=${data.icons}&theme=${iconTheme}" alt="${data.names.join(', ')}" title="${data.names.join(' · ')}" class="skillicons-img" loading="lazy"/>
+        </picture>
       </div>
     </div>
   `).join('');
