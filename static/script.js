@@ -132,7 +132,7 @@ const i18n = {
     "langs-label": "Languages"
   }
 };
- 
+
 Object.assign(i18n.pt, {
   "nav-goals": "Objetivos & Interesses",
   "nav-projects": "Projetos",
@@ -429,17 +429,17 @@ const expandedProjectCategories = { academic: false, personal: false, profession
 let currentProjectCategory = 'professional';
 let currentLang = "pt";
 let currentTheme = "dark";
- 
+
 function renderContent(lang){
   const d = i18n[lang];
   document.querySelector('.project-modal-close').setAttribute('aria-label', lang === 'pt' ? 'Fechar' : 'Close');
- 
+
   // Static i18n keys
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     const key = el.getAttribute('data-i18n');
     if(d[key]) el.textContent = d[key];
   });
- 
+
   // About
   document.getElementById('about-text').innerHTML = d.about;
 
@@ -449,7 +449,7 @@ function renderContent(lang){
   `;
 
   renderProjects();
- 
+
   // Experience
   const expEl = document.getElementById('experience-list');
   expEl.innerHTML = d.experience.map(e=>`
@@ -465,7 +465,7 @@ function renderContent(lang){
       <div class="exp-tags">${e.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
     </div>
   `).join('');
- 
+
   // Skills
   const skillsEl = document.getElementById('skills-content');
   const iconTheme = document.body.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
@@ -480,7 +480,7 @@ function renderContent(lang){
       </div>
     </div>
   `).join('');
- 
+
   // Education
   const eduEl = document.getElementById('education-list');
   eduEl.innerHTML = d.education.map(e=>`
@@ -491,7 +491,7 @@ function renderContent(lang){
       <div class="edu-desc">${e.desc}</div>
     </div>
   `).join('');
- 
+
   // Certs
   const certsEl = document.getElementById('certs-content');
   certsEl.innerHTML = `
@@ -633,7 +633,7 @@ document.querySelectorAll('.project-tab').forEach(tab=>{
     renderProjects();
   });
 });
- 
+
 // Lang toggle
 document.getElementById('langBtn').addEventListener('click',()=>{
   currentLang = currentLang === 'pt' ? 'en' : 'pt';
@@ -641,7 +641,7 @@ document.getElementById('langBtn').addEventListener('click',()=>{
   document.getElementById('langBtn').textContent = currentLang === 'pt' ? 'EN' : 'PT';
   renderContent(currentLang);
 });
- 
+
 // Theme toggle
 document.getElementById('themeBtn').addEventListener('click',()=>{
   currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -650,7 +650,7 @@ document.getElementById('themeBtn').addEventListener('click',()=>{
   document.getElementById('themeLabel').textContent = currentTheme === 'dark' ? 'light' : 'dark';
   renderContent(currentLang);
 });
- 
+
 // Nav active state
 const sections = document.querySelectorAll('section');
 const navItems = document.querySelectorAll('.nav-item');
@@ -686,7 +686,7 @@ function scheduleActiveNavUpdate(){
 
 window.addEventListener('scroll',scheduleActiveNavUpdate,{passive:true});
 window.addEventListener('resize',scheduleActiveNavUpdate);
- 
+
 // Custom cursor
 const cursor = document.getElementById('cursor');
 const dot = document.getElementById('cursor-dot');
@@ -706,7 +706,7 @@ document.querySelectorAll('a,button,.exp-card,.cert-card,.skill-badge').forEach(
   el.addEventListener('mouseenter',()=>cursor.classList.add('hovering'));
   el.addEventListener('mouseleave',()=>cursor.classList.remove('hovering'));
 });
- 
+
 // Init
 renderContent('pt');
 updateActiveNav();
